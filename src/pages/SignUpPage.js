@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SignUpDiv = styled.div`
     display: flex;
@@ -23,7 +24,8 @@ const ButtonElement = styled.button`
     width: 150px;
     height: 45px;
     border-radius: 5px;
-    margin: 50px;
+    margin-top: 50px;
+    margin-bottom:20px;
     padding: 5px;
     font-size: 20px;
     font-weight: bold;
@@ -35,6 +37,11 @@ const ButtonElement = styled.button`
         color: #61dafb;
     }
 `;
+
+const NavBarLink = styled(Link)`
+  color: white;
+`;
+
 function SignUpPage(props) {
     return (
         <SignUpDiv>
@@ -42,6 +49,7 @@ function SignUpPage(props) {
             <InputElement data-testid="email-input" />
             <InputElement data-testid="password-input" />
             <ButtonElement data-testid="signup-button">회원가입</ButtonElement>
+            <NavBarLink to="/signin">로그인</NavBarLink>
         </SignUpDiv>
     );
 }
