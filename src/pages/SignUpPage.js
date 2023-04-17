@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -75,7 +75,7 @@ function SignUpPage(props) {
         axios.post(url,params)
         .then((res)=>{
             alert("회원가입을 성공했습니다.")
-            return navigate('/signin')
+            return navigate('/signin', {replace:true})
         }).catch((err)=>{
             const {statusCode, message} = err.response.data;
             if(statusCode === 400){

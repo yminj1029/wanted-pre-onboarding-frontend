@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignInDiv = styled.div`
     display: flex;
@@ -33,6 +34,10 @@ const ButtonElement = styled.button`
     border: none;        
     background-color: #61dafb;
     color: white;
+    :disabled{
+        background-color: gray;
+        pointer-events:none;
+    }
     :hover{
         background-color: white;
         color: #61dafb;
@@ -45,15 +50,76 @@ const NavBarLink = styled(Link)`
 `; 
 
 function SignInPage(props) {
+    const navigate = useNavigate();
+    //email input check
+    const [emailAddress, setEmailAddress] = useState('');
+    const handleEmailInput = (e)=>{
+        setEmailAddress(e.target.value);
+    }
+    //email @포함
+    const isValidEmail = emailAddress.includes('@');
+
+    //pw input check
+    const [password, setPassword] = useState('');
+    const handlePassWord = (e)=>{
+        setPassword(e.target.value);
+    }
+    //비밀번호조건 8자 이상
+    const isValidPassword = password.length >= 8;
+
+    const handleSignIn = () =>{
+        const url = 'https://www.pre-onboarding-selection-task.shop/auth/signin';
+        const params = {
+            "email" : emailAddress,
+            "password":password
+        }
+        axios.post(url,params)
+        .then((res)=>{
+            //token 저장
+            const tokenData = res.data.access_token;
+            localStorage.setItem("token", tokenData)
+            return navigate('/todo')
+        }).catch((err)=>{
+            const {statusCode, message} = err.response.data;
+            if(statusCode === 404){
+                alert(message)
+                return navigate('/signin')
+            }
+            if(statusCode === 401){
+                alert("비밀번호를 다시 한번 확인해 주세요")
+                return navigate('/signin')
+            }   
+        });
+    }
     return (
         <SignInDiv>
-            <span>Sign In</span>
-            <InputElement data-testid="email-input" />
-            <InputElement data-testid="password-input" />
-            <ButtonElement data-testid="signin-button">로그인</ButtonElement>
+            <span>로그인</span>
+            <InputElement 
+                onChange={handleEmailInput}
+                value={emailAddress}
+                placeholder='이메일 입력시 @를 포함해야 합니다.'
+                data-testid="email-input" />
+            <InputElement 
+                type='password'
+                onChange={handlePassWord}
+                value={password}
+                placeholder='비밀번호는 8자 이상이어야 합니다.'
+                data-testid="password-input" />
+            <ButtonElement 
+                onClick={handleSignIn}
+                disabled={!isValidEmail||!isValidPassword} 
+                data-testid="signin-button">
+                Sign In
+            </ButtonElement>
             <NavBarLink to="/signup">회원가입</NavBarLink>
         </SignInDiv>
     );
 }
 
 export default SignInPage;
+
+
+// {
+//     "email":"thinkaboutyou@test.com",
+//     "password":"earlyinmorning"
+// }
