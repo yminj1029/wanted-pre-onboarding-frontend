@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const SignUpDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -48,6 +48,7 @@ const NavBarLink = styled(Link)`
 `;
 
 function SignUpPage(props) {
+    const navigate = useNavigate();
     //email input check
     const [emailAddress, setEmailAddress] = useState('');
     const handleEmailInput = (e)=>{
@@ -66,13 +67,27 @@ function SignUpPage(props) {
 
     //회원가입 성공 후 sigin 페이지로 이동
     const handleSignUp = ()=>{
-        console.log("email", emailAddress,"password", password)
+        const url = 'https://www.pre-onboarding-selection-task.shop/auth/signup';
+        const params = {
+            "email" : emailAddress,
+            "password":password
+        }
+        axios.post(url,params)
+        .then((res)=>{
+            alert("회원가입을 성공했습니다.")
+            return navigate('/signin')
+        }).catch((err)=>{
+            const {statusCode, message} = err.response.data;
+            if(statusCode === 400){
+                alert(message)
+            }   
+        });
     }
     
 
     return (
         <SignUpDiv>
-            <span>Sign Up</span>
+            <span>회원가입</span>
             <InputElement 
                 onChange={handleEmailInput}
                 value={emailAddress}
@@ -88,7 +103,7 @@ function SignUpPage(props) {
                 onClick={handleSignUp}
                 disabled={!isValidEmail||!isValidPassword} 
                 data-testid="signup-button">
-                회원가입
+                Sign Up
             </ButtonElement>
             <NavBarLink to="/signin">로그인</NavBarLink>
         </SignUpDiv>
