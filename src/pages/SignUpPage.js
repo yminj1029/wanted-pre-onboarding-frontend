@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import restApiUtil from '../api/restApiUtil';
+
 const SignUpDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -67,13 +68,11 @@ function SignUpPage(props) {
 
     //회원가입 성공 후 sigin 페이지로 이동
     const handleSignUp = ()=>{
-        const url = 'https://www.pre-onboarding-selection-task.shop/auth/signup';
         const params = {
             "email" : emailAddress,
             "password":password
         }
-        axios.post(url,params)
-        .then((res)=>{
+        restApiUtil.post('/auth/signup', params).then((res)=>{
             alert("회원가입을 성공했습니다.")
             return navigate('/signin', {replace:true})
         }).catch((err)=>{

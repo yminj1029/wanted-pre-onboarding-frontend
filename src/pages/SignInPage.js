@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import restApiUtil from '../api/restApiUtil';
 
 const SignInDiv = styled.div`
     display: flex;
@@ -68,14 +68,12 @@ function SignInPage(props) {
     const isValidPassword = password.length >= 8;
 
     const handleSignIn = () =>{
-        const url = 'https://www.pre-onboarding-selection-task.shop/auth/signin';
         const params = {
             "email" : emailAddress,
             "password":password
         }
-        axios.post(url,params)
-        .then((res)=>{
-            //token 저장
+        restApiUtil.post('/auth/signin', params).then((res)=>{
+            // token 저장
             const tokenData = res.data.access_token;
             localStorage.setItem("token", tokenData)
             return navigate('/todo')
