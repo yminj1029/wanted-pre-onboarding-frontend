@@ -7,7 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      TODO
+      <div className='App-header'>TODO</div>
       <Routes>
         {/* 회원가입 */}
         <Route element={<SignUpPage/>} exact path='/signup'></Route>      
