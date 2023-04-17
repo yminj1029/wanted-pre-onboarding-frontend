@@ -8,6 +8,7 @@ const SignInDiv = styled.div`
     align-items: center;
 
     >span{
+        margin-bottom:20px;
         color: white;
         font-size: 25px;
         font-weight: bold;
