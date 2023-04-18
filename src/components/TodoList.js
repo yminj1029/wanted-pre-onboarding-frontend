@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import styled from 'styled-components';
-import restApiUtil from '../api/restApiUtil';
+import restApiUtil from '../util/RestApiUtil';
 
 const TodoListTemplateUl = styled.ul`
     display: flex;

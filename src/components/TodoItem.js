@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import restApiUtil from '../api/restApiUtil';
+import restApiUtil from '../util/RestApiUtil';
 
 
 const TodoItemLiTag = styled.li`

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import restApiUtil from '../api/restApiUtil';
+import restApiUtil from '../util/RestApiUtil';
 
 const SignInDiv = styled.div`
     display: flex;
