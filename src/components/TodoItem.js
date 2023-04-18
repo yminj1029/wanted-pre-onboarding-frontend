@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import restApiUtil from '../api/restApiUtil';
 
 
 const TodoItemLiTag = styled.li`
@@ -23,7 +24,7 @@ const TodoItemLiTag = styled.li`
             width: 200px;
         }
     }
-    >button{
+    >div>button{
         border:none;
         background: none;
         font-size:15px;
@@ -38,17 +39,91 @@ const TodoItemLiTag = styled.li`
 `;
 
 function TodoItem({id, isCompleted, todo, userId}) {
+    const [todoData, setTodoData] = useState(todo)
+    const [completeData, setCompleteData] = useState(isCompleted)
+    const [updateFlag, setUpdateFlag] = useState(false)
+
+    const handleCompleted = ()=>{
+        setCompleteData(!completeData)
+        submitUpdateData();
+    }
+    const handleDeleteBtn = ()=>{
+        restApiUtil.delete(`/todos/${id}`).then((res)=>{
+            console.log('todo 삭제 성공');
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+    
+    const handleUpdateBtn = ()=>{
+        setUpdateFlag(true)
+    }
+    const cancelUpdateBtn = () =>{
+        setUpdateFlag(false)
+    }
+    const handleTodoInput = (e)=>{
+        setTodoData(e.target.value)
+    };
+
+    const handleSubmitBtn = ()=>{
+        submitUpdateData();
+        setUpdateFlag(false);
+    }
+
+    const submitUpdateData = ()=>{
+        const params ={
+            todo : todoData,
+            isCompleted : completeData 
+        }
+        restApiUtil.put(`/todos/${id}`, params).then((res)=>{
+            console.log('todo 업데이트 성공');
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
     return (
         <TodoItemLiTag>
             <label>
-                <input type="checkbox" />
-                <span>{todo}</span>
-                {/* <input className="modifyInput" data-testid="modify-input" /> */}
+                <input 
+                type="checkbox" 
+                value={completeData}
+                onChange={handleCompleted}
+                />
+                {!updateFlag? (<span>{todo}</span>)
+                :(
+                    <input 
+                    value={todoData}
+                    onChange={handleTodoInput} 
+                    className="modifyInput" 
+                    data-testid="modify-input" />
+                )    
+                }
             </label>
-            <button className="modifyBtn" data-testid="modify-button">수정</button>
-            <button className="deleteBtn" data-testid="delete-button">삭제</button>
-            {/* <button className="modifyBtn" data-testid="submit-button">제출</button>
-            <button className="deleteBtn" data-testid="cancel-button">취소</button> */}
+            {!updateFlag? (
+                <div>
+                    <button 
+                    onClick={handleUpdateBtn} 
+                    className="modifyBtn" 
+                    data-testid="modify-button">수정</button>
+                    <button
+                     onClick={handleDeleteBtn}
+                    className="deleteBtn" 
+                    data-testid="delete-button">삭제</button>
+                </div>
+                )
+                :(
+                    <div>
+                        <button 
+                        onClick={handleSubmitBtn}
+                        className="modifyBtn" 
+                        data-testid="submit-button">제출</button>
+                        <button
+                        onClick={cancelUpdateBtn} 
+                        className="deleteBtn" 
+                        data-testid="cancel-button">취소</button>
+                    </div>
+                )    
+                }
         </TodoItemLiTag>
     );
 }

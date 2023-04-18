@@ -119,9 +119,3 @@ function SignInPage({authenticated}) {
 }
 
 export default SignInPage;
-
-
-// {
-//     "email":"thinkaboutyou@test.com",
-//     "password":"earlyinmorning"
-// }

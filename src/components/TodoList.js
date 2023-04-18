@@ -29,7 +29,9 @@ function TodoList(props) {
         }).catch((err)=>{
             console.log(err);
         })
-    },[todoListData])
+    },[])
+
+    
     return (
         <TodoListTemplateUl>
             {todoListData.length === 0?
