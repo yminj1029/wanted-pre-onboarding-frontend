@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import restApiUtil from '../api/restApiUtil';
 
 const SignInDiv = styled.div`
@@ -49,10 +49,15 @@ const NavBarLink = styled(Link)`
   color: white;
 `; 
 
-function SignInPage(props) {
+function SignInPage({authenticated}) {
     const navigate = useNavigate();
-    //email input check
     const [emailAddress, setEmailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    
+    if(authenticated){
+        return <Navigate to='/todo' authenticated={authenticated}/>
+    }
+    //email input check
     const handleEmailInput = (e)=>{
         setEmailAddress(e.target.value);
     }
@@ -60,7 +65,6 @@ function SignInPage(props) {
     const isValidEmail = emailAddress.includes('@');
 
     //pw input check
-    const [password, setPassword] = useState('');
     const handlePassWord = (e)=>{
         setPassword(e.target.value);
     }
@@ -75,7 +79,7 @@ function SignInPage(props) {
         restApiUtil.post('/auth/signin', params).then((res)=>{
             // token 저장
             const tokenData = res.data.access_token;
-            localStorage.setItem("token", tokenData)
+            localStorage.setItem("token", tokenData);
             return navigate('/todo')
         }).catch((err)=>{
             const {statusCode, message} = err.response.data;
