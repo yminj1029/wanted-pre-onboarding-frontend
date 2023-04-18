@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import styled from 'styled-components';
+import restApiUtil from '../api/restApiUtil';
 
 const TodoListTemplateUl = styled.ul`
     display: flex;
@@ -12,19 +13,17 @@ const TodoListTemplateUl = styled.ul`
 `;
 
 function TodoList(props) {
+    const [todoListData, setTodoListData] = useState([]);
+    
+    useEffect(()=>{
+        restApiUtil.get('/todos').then((res)=>{
+            setTodoListData(res.data);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[])
     return (
         <TodoListTemplateUl>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
-            <TodoItem/>
             <TodoItem/>
         </TodoListTemplateUl>
     );
