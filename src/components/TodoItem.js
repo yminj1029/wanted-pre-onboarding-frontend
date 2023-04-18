@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import restApiUtil from '../api/restApiUtil';
 
@@ -40,12 +40,11 @@ const TodoItemLiTag = styled.li`
 
 function TodoItem({id, isCompleted, todo, userId}) {
     const [todoData, setTodoData] = useState(todo)
-    const [completeData, setCompleteData] = useState(isCompleted)
     const [updateFlag, setUpdateFlag] = useState(false)
 
-    const handleCompleted = ()=>{
-        setCompleteData(!completeData)
-        submitUpdateData();
+    const handleCompleted = (e)=>{
+        
+        submitUpdateData(e);
     }
     const handleDeleteBtn = ()=>{
         restApiUtil.delete(`/todos/${id}`).then((res)=>{
@@ -66,14 +65,14 @@ function TodoItem({id, isCompleted, todo, userId}) {
     };
 
     const handleSubmitBtn = ()=>{
-        submitUpdateData();
+        submitUpdateData(isCompleted);
         setUpdateFlag(false);
     }
 
-    const submitUpdateData = ()=>{
+    const submitUpdateData = (checked)=>{
         const params ={
             todo : todoData,
-            isCompleted : completeData 
+            isCompleted : checked 
         }
         restApiUtil.put(`/todos/${id}`, params).then((res)=>{
             console.log('todo 업데이트 성공');
@@ -86,8 +85,9 @@ function TodoItem({id, isCompleted, todo, userId}) {
             <label>
                 <input 
                 type="checkbox" 
-                value={completeData}
-                onChange={handleCompleted}
+                checked={isCompleted}
+                // onChange={handleCompleted}
+                onChange={({ target: { checked } }) => handleCompleted(checked)}
                 />
                 {!updateFlag? (<span>{todo}</span>)
                 :(
