@@ -43,7 +43,7 @@ function TodoInsert(props) {
             todo:todoData
         }
         restApiUtil.post('/todos', params).then((res)=>{
-            console.log(res);
+            console.log("todo 입력 성공");
         }).catch((err)=>{
             console.log(err);
         })

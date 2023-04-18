@@ -37,12 +37,12 @@ const TodoItemLiTag = styled.li`
     }
 `;
 
-function TodoItem(props) {
+function TodoItem({id, isCompleted, todo, userId}) {
     return (
         <TodoItemLiTag>
             <label>
                 <input type="checkbox" />
-                <span>TODO 1</span>
+                <span>{todo}</span>
                 {/* <input className="modifyInput" data-testid="modify-input" /> */}
             </label>
             <button className="modifyBtn" data-testid="modify-button">수정</button>
