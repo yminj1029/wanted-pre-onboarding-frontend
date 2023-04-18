@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import restApiUtil from '../api/restApiUtil';
 
 const TodoInsertDiv = styled.div`
     display: flex;
@@ -29,10 +30,34 @@ const ButtonElement = styled.button`
 `;
 
 function TodoInsert(props) {
+
+    const [todoData, setTodoData] = useState('');
+
+    const handleTodoInput = useCallback((e)=>{
+        setTodoData(e.target.value)
+    },[]);
+    const handleAddTodo= useCallback((e)=>{
+        e.preventDefault();
+    
+        const params = {
+            todo:todoData
+        }
+        restApiUtil.post('/todos', params).then((res)=>{
+            console.log(res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+        setTodoData('')
+    },[todoData])
     return (
         <TodoInsertDiv>
-            <InputElement data-testid="new-todo-input" />
-            <ButtonElement data-testid="new-todo-add-button">추가</ButtonElement>
+            <InputElement 
+            value={todoData}
+            onChange={handleTodoInput}
+            data-testid="new-todo-input" />
+            <ButtonElement 
+            onClick={handleAddTodo}
+            data-testid="new-todo-add-button">추가</ButtonElement>
         </TodoInsertDiv>
     );
 }
