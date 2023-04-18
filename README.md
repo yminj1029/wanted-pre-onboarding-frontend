@@ -10,8 +10,10 @@ url :
 
 - git clone 후 아래와 같은 과정으로 코드 실행이 가능합니다.
 
+```
   $ npm install
   $ npm start
+```
 
 
 
