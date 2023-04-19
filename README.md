@@ -11,14 +11,30 @@
 - git clone 후 아래와 같은 과정으로 코드 실행이 가능합니다.
 
 ```
-  //필요한 library를 설치합니다.
+  필요한 library를 설치합니다.
+  
   $ npm install
   
-  //local 환경에서 코드를 실행합니다.
+  local 환경에서 코드를 실행합니다.
+  
   $ npm start
 ```
 
 ## 구현 요구사항 목록 
+
+### 1. 로그인, 회원가입
+- [X] Assignment 1 이메일과 비밀번호 유효성 검사
+- [X] Assignment 2 회원가입
+- [X] Assignment 3 로그인
+- [X] Assignment 4 로그인 여부에 따른 리다이렉트 처리 구현
+
+### 2. TODO LIST
+- [X] Assignment 5 리스트 화면
+- [X] Assignment 6 새로운 TODO 입력
+- [X] Assignment 7 TODO 완료 여부 체크
+- [X] Assignment 8 TODO 우측 수정 버튼과 삭제 버튼 생성
+- [X] Assignment 9 TODO 삭제 기능 구현
+- [X] Assignment 10 TODO 수정 기능 구현
 
 ## 사용한 프레임워크 및 라이브러리 설명
 
@@ -37,12 +53,12 @@
 📦 
 |-- public
 `-- src
-     |-- commons
+    |-- commons
     |-- components
     |-- pages
     |-- util
     |-- pages
-    `-- utils
+    `-- util
 ```
 ## 과제 진행 시 주안점 작성
 
