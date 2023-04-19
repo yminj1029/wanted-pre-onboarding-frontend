@@ -27,7 +27,7 @@ function TodoList() {
 
     useEffect(() => {
         dispatch(getTodoList());
-    }, []);
+    }, [dispatch]);
 
     return (
         <TodoListTemplateUl>

@@ -57,7 +57,7 @@ export const insertTodo = (todo) => async dispatch => {
 export const deleteTodo = (id) => async dispatch => {
     dispatch({ type: DELETE_TODO }); // 요청 시작 
     try {
-        const response = await restApiUtil.delete(`/todos/${id}`);
+        await restApiUtil.delete(`/todos/${id}`);
         dispatch({
             type: DELETE_TODO_SUCCESS,
             payload: id
