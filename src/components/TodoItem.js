@@ -80,7 +80,6 @@ function TodoItem({id, isCompleted, todo, userId}) {
                 <input 
                 type="checkbox" 
                 checked={isCompleted}
-                // onChange={handleCompleted}
                 onChange={({ target: { checked } }) => handleCompleted(checked)}
                 />
                 {!updateFlag? (<span>{todo}</span>)

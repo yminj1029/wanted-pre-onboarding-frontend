@@ -15,7 +15,6 @@ const restApiUtil = () =>{
         return config 
     })
 
-    //auth 가 아닐경우 token 없으면 에러 던져야할텐뎅
     return instance;
 }
 

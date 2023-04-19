@@ -1,10 +1,3 @@
-// import { GET_TODO_LIST,
-//     GET_TODO_LIST_SUCCESS, 
-//     GET_TODO_LIST_FAILURE,
-//     INSERT_TODO,
-//     INSERT_TODO_SUCCESS,
-//     INSERT_TODO_FAILURE
-//     } from "./actions";
 import * as ACTION from './actions';
 import { handleActions } from 'redux-actions';
 
@@ -108,31 +101,3 @@ export const todoReducer = handleActions(
     },
     initialState
 );
-
-// export default todoReducer;
-// //최초 state를 빈 배열로 지정
-// export const todoReducer = (state=[], action) =>{
-//     switch (action.type) {
-//         case GET_TODO_LIST:
-//             return action.payload;
-//         case InsertTodo:
-//             return {
-                
-//             };
-//         case UpdateTodo:
-//             return {
-
-//             };
-//         case DeleteTodo:
-//             return{
-
-//             };
-//         default:
-//             return state;
-//     }
-// }
-
-// //createStore를 위한 reducer로 넘어감
-// export default combineReducers({
-//     todos : todoReducer
-// })
