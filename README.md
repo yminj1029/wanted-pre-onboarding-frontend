@@ -4,7 +4,7 @@
 
 ## 최종 구현 화면
 
-[과제 제출 URL : https://643f4fc79f52d20008d127a7--jolly-kangaroo-12506c.netlify.app/todo](https://643f4fc79f52d20008d127a7--jolly-kangaroo-12506c.netlify.app/todo)
+[과제 제출 URL : https://master--jolly-kangaroo-12506c.netlify.app](https://master--jolly-kangaroo-12506c.netlify.app)
 
 ## 실행 방법
 
