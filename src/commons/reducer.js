@@ -82,6 +82,28 @@ export const todoReducer = handleActions(
                 ...state.loading,
                 DELETE_TODO: false // 요청 완료 
             }
+        }),
+        [ACTION.UPDATE_TODO]: state => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                UPDATE_TODO: true //요청 시작 
+            }
+        }),
+        [ACTION.UPDATE_TODO_SUCCESS]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                UPDATE_TODO: false // 요청 완료
+            },
+            todoList: state.todoList.map((todo)=> todo.id === action.payload.id ? {...action.payload} :todo )
+        }),
+        [ACTION.UPDATE_TODO_FAILURE]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                UPDATE_TODO: false // 요청 완료 
+            }
         })
     },
     initialState

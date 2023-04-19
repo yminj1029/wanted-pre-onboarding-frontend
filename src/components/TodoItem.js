@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import restApiUtil from '../util/RestApiUtil';
-import { deleteTodo } from '../commons/actions';
+import { deleteTodo, updateTodo } from '../commons/actions';
 
 
 const TodoItemLiTag = styled.li`
@@ -47,7 +46,6 @@ function TodoItem({id, isCompleted, todo, userId}) {
     const [updateFlag, setUpdateFlag] = useState(false)
 
     const handleCompleted = (e)=>{
-        
         submitUpdateData(e);
     }
     const handleDeleteBtn = ()=>{
@@ -74,11 +72,7 @@ function TodoItem({id, isCompleted, todo, userId}) {
             todo : todoData,
             isCompleted : checked 
         }
-        restApiUtil.put(`/todos/${id}`, params).then((res)=>{
-            console.log('todo 업데이트 성공');
-        }).catch((err)=>{
-            console.log(err);
-        })
+        dispatch(updateTodo(id, params))
     }
     return (
         <TodoItemLiTag>
