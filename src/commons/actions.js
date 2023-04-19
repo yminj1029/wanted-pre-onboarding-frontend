@@ -76,7 +76,6 @@ export const updateTodo = (id, params) => async dispatch => {
     dispatch({ type: UPDATE_TODO }); // 요청 시작 
     try {
         const response = await restApiUtil.put(`/todos/${id}`, params);
-        console.log('updateTodo?',response);
         dispatch({
             type: UPDATE_TODO_SUCCESS,
             payload: response.data
