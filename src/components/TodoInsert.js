@@ -39,8 +39,12 @@ function TodoInsert(props) {
         setTodoData(e.target.value)
     }
     const handleAddTodo = () =>{
-        dispatch(insertTodo(todoData))
-        setTodoData('')
+        if(todoData.length === 0 || todoData ==='' || todoData === null || todoData === undefined ){
+            alert("내용을 입력하세요")
+        }else{
+            dispatch(insertTodo(todoData))
+            setTodoData('')
+        }
     }
     
     return (
