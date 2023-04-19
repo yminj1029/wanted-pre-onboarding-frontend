@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import restApiUtil from '../util/RestApiUtil';
-import { insert_todo } from "../commons/actions";
+import { insertTodo } from "../commons/actions";
 
 const TodoInsertDiv = styled.div`
     display: flex;
@@ -40,26 +40,10 @@ function TodoInsert(props) {
         setTodoData(e.target.value)
     }
     const handleAddTodo = () =>{
-        // const params = {
-        //     todo:todoData
-        // }
-        dispatch(insert_todo(todoData))
+        dispatch(insertTodo(todoData))
         setTodoData('')
     }
     
-    // const handleAddTodo= useCallback((e)=>{
-    //     e.preventDefault();
-    
-    //     const params = {
-    //         todo:todoData
-    //     }
-    //     restApiUtil.post('/todos', params).then((res)=>{
-    //         console.log("todo 입력 성공");
-    //     }).catch((err)=>{
-    //         console.log(err);
-    //     })
-    //     setTodoData('')
-    // },[todoData])
     return (
         <TodoInsertDiv>
             <InputElement 

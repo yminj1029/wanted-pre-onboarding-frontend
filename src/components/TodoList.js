@@ -3,7 +3,7 @@ import TodoItem from './TodoItem';
 import styled from 'styled-components';
 import restApiUtil from '../util/RestApiUtil';
 import { useDispatch, useSelector } from 'react-redux';
-import { get_todo_list } from '../commons/actions';
+import { getTodoList } from '../commons/actions';
 
 const TodoListTemplateUl = styled.ul`
     display: flex;
@@ -24,18 +24,13 @@ const TodoListTemplateUl = styled.ul`
 
 function TodoList(props) {
     const dispatch = useDispatch();
-    const [todoListData, setTodoListData] = useState([]);
-    const todoList = useSelector((state)=> state.todos);
-    
-    useEffect(()=>{
-        // dispatch(get_todo_list())
-        // restApiUtil.get('/todos').then((res)=>{
-        //     setTodoListData(res.data);
-        // }).catch((err)=>{
-        //     console.log(err);
-        // })
-    },[])
+    const todoList = useSelector((state)=> {
+        console.log(state);
+        return state.todoList});
 
+    useEffect(() => {
+        dispatch(getTodoList());
+    }, []);
 
     return (
         <TodoListTemplateUl>
