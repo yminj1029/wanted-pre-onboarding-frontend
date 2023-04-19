@@ -1,10 +1,11 @@
-import { GET_TODO_LIST,
-    GET_TODO_LIST_SUCCESS, 
-    GET_TODO_LIST_FAILURE,
-    INSERT_TODO,
-    INSERT_TODO_SUCCESS,
-    INSERT_TODO_FAILURE
-    } from "./actions";
+// import { GET_TODO_LIST,
+//     GET_TODO_LIST_SUCCESS, 
+//     GET_TODO_LIST_FAILURE,
+//     INSERT_TODO,
+//     INSERT_TODO_SUCCESS,
+//     INSERT_TODO_FAILURE
+//     } from "./actions";
+import * as ACTION from './actions';
 import { handleActions } from 'redux-actions';
 
 const initialState ={
@@ -16,14 +17,14 @@ const initialState ={
 
 export const todoReducer = handleActions(
     {
-        [GET_TODO_LIST]: state => ({
+        [ACTION.GET_TODO_LIST]: state => ({
             ...state,
             loading: {
                 ...state.loading,
                 GET_TODO_LIST: true //요청 시작 
             }
         }),
-        [GET_TODO_LIST_SUCCESS]: (state, action) => ({
+        [ACTION.GET_TODO_LIST_SUCCESS]: (state, action) => ({
             ...state,
             loading: {
                 ...state.loading,
@@ -31,21 +32,21 @@ export const todoReducer = handleActions(
             },
             todoList: action.payload
         }),
-        [GET_TODO_LIST_FAILURE]: (state, action) => ({
+        [ACTION.GET_TODO_LIST_FAILURE]: (state, action) => ({
             ...state,
             loading: {
                 ...state.loading,
                 GET_TODO_LIST: false // 요청 완료 
             }
         }),
-        [INSERT_TODO]: state => ({
+        [ACTION.INSERT_TODO]: state => ({
             ...state,
             loading: {
                 ...state.loading,
                 INSERT_TODO: true //요청 시작 
             }
         }),
-        [INSERT_TODO_SUCCESS]: (state, action) => ({
+        [ACTION.INSERT_TODO_SUCCESS]: (state, action) => ({
             ...state,
             loading: {
                 ...state.loading,
@@ -53,11 +54,33 @@ export const todoReducer = handleActions(
             },
             todoList: state.todoList.concat(action.payload)
         }),
-        [INSERT_TODO_FAILURE]: (state, action) => ({
+        [ACTION.INSERT_TODO_FAILURE]: (state, action) => ({
             ...state,
             loading: {
                 ...state.loading,
                 INSERT_TODO: false // 요청 완료 
+            }
+        }),
+        [ACTION.DELETE_TODO]: state => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                DELETE_TODO: true //요청 시작 
+            }
+        }),
+        [ACTION.DELETE_TODO_SUCCESS]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                DELETE_TODO: false // 요청 완료
+            },
+            todoList: state.todoList.filter((todo)=> todo.id !== action.payload)
+        }),
+        [ACTION.DELETE_TODO_FAILURE]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                DELETE_TODO: false // 요청 완료 
             }
         })
     },

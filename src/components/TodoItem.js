@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import restApiUtil from '../util/RestApiUtil';
+import { deleteTodo } from '../commons/actions';
 
 
 const TodoItemLiTag = styled.li`
@@ -39,6 +41,8 @@ const TodoItemLiTag = styled.li`
 `;
 
 function TodoItem({id, isCompleted, todo, userId}) {
+    const dispatch = useDispatch();
+
     const [todoData, setTodoData] = useState(todo)
     const [updateFlag, setUpdateFlag] = useState(false)
 
@@ -47,11 +51,7 @@ function TodoItem({id, isCompleted, todo, userId}) {
         submitUpdateData(e);
     }
     const handleDeleteBtn = ()=>{
-        restApiUtil.delete(`/todos/${id}`).then((res)=>{
-            console.log('todo 삭제 성공');
-        }).catch((err)=>{
-            console.log(err);
-        })
+        dispatch(deleteTodo(id))
     }
     
     const handleUpdateBtn = ()=>{

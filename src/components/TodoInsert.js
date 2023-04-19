@@ -1,7 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import restApiUtil from '../util/RestApiUtil';
 import { insertTodo } from "../commons/actions";
 
 const TodoInsertDiv = styled.div`

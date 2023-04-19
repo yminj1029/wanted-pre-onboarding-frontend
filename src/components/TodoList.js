@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import TodoItem from './TodoItem';
 import styled from 'styled-components';
-import restApiUtil from '../util/RestApiUtil';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodoList } from '../commons/actions';
 
@@ -22,11 +21,9 @@ const TodoListTemplateUl = styled.ul`
     }
 `;
 
-function TodoList(props) {
+function TodoList() {
     const dispatch = useDispatch();
-    const todoList = useSelector((state)=> {
-        console.log(state);
-        return state.todoList});
+    const todoList = useSelector((state)=> state.todoList);
 
     useEffect(() => {
         dispatch(getTodoList());
