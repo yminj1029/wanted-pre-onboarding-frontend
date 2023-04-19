@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import styled from 'styled-components';
 import restApiUtil from '../util/RestApiUtil';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_todo_list } from '../commons/actions';
 
 const TodoListTemplateUl = styled.ul`
     display: flex;
@@ -21,22 +23,25 @@ const TodoListTemplateUl = styled.ul`
 `;
 
 function TodoList(props) {
+    const dispatch = useDispatch();
     const [todoListData, setTodoListData] = useState([]);
+    const todoList = useSelector((state)=> state.todos);
     
     useEffect(()=>{
-        restApiUtil.get('/todos').then((res)=>{
-            setTodoListData(res.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
+        // dispatch(get_todo_list())
+        // restApiUtil.get('/todos').then((res)=>{
+        //     setTodoListData(res.data);
+        // }).catch((err)=>{
+        //     console.log(err);
+        // })
     },[])
 
-    
+
     return (
         <TodoListTemplateUl>
-            {todoListData.length === 0?
+            {todoList.length === 0?
             (<div className='noTodo'>할 일을 추가해주세요</div>) 
-            :(todoListData.map((todo)=>{
+            :(todoList.map((todo)=>{
                return <TodoItem
                     key = {todo.id}
                     id ={todo.id}
